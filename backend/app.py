@@ -82,7 +82,7 @@ app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin requests (allows frontend to call API)
 
 # ========== LOAD MODELS AT STARTUP ==========
-MODEL_DIR = 'backend/models/saved_models'
+MODEL_DIR = 'models/saved_models'
 PIPELINE_PATH = os.path.join(MODEL_DIR, 'preprocessing_pipeline.pkl')
 EQUIPMENT_MODEL_PATH = os.path.join(MODEL_DIR, 'equipment_failure_model.pkl')
 CANCELLATION_MODEL_PATH = os.path.join(MODEL_DIR, 'flight_cancellation_model.pkl')
@@ -293,7 +293,7 @@ def batch_predict():
 def get_analytics():
       """Get comprehensive analytics data"""
       try:
-          analytics_path = 'backend/analytics/analytics_results.json'
+          analytics_path = 'analytics/analytics_results.json'
 
           if not os.path.exists(analytics_path):
               return jsonify({
