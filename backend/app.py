@@ -84,8 +84,8 @@ CORS(app)  # Enable Cross-Origin requests (allows frontend to call API)
 # ========== LOAD MODELS AT STARTUP ==========
 MODEL_DIR = 'models/saved_models'
 PIPELINE_PATH = os.path.join(MODEL_DIR, 'preprocessing_pipeline.pkl')
-EQUIPMENT_MODEL_PATH = os.path.join(MODEL_DIR, 'equipment_failure_model.pkl')
-CANCELLATION_MODEL_PATH = os.path.join(MODEL_DIR, 'flight_cancellation_model.pkl')
+EQUIPMENT_MODEL_PATH = os.path.join(MODEL_DIR, 'equipment_failure_xgboost_model.pkl')
+CANCELLATION_MODEL_PATH = os.path.join(MODEL_DIR, 'flight_cancellation_xgboost_model.pkl')
 
 print("\n" + "="*70)
 print("LOADING MODELS...")
