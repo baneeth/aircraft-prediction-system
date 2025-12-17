@@ -7,7 +7,7 @@
   */
 
   // API Configuration
-  const API_BASE_URL = 'http://localhost:5000';
+  const API_BASE_URL = 'https://aircraft-prediction-system.onrender.com';
 
   // Initialize application when DOM is loaded
   document.addEventListener('DOMContentLoaded', function() {
