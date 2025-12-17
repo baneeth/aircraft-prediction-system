@@ -247,6 +247,12 @@ def batch_predict():
 
         # Convert to DataFrame
         df = pd.DataFrame(data)
+        # Fill missing columns with default values
+        required_cols = pipeline.feature_names_in_ if hasattr(pipeline, "feature_names_in_") else []
+        for col in required_cols:
+            if col not in df.columns:
+                df[col] = 0  # Default value for missing columns
+
 
         # Preprocess
         X_processed = pipeline.transform(df)
