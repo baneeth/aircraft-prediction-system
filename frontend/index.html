@@ -1,0 +1,700 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Aircraft Maintenance & Flight Prediction System | Data Analytics Platform</title>
+      <link rel="stylesheet" href="styles.css">
+      <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>      <style>
+          .tab-content { display: none; }
+          .tab-content.active { display: block; }
+      </style>  </head>
+  <body>
+      <!-- Animated Background -->
+      <div class="animated-background">
+          <div class="plane-animation"></div>
+          <div class="grid-overlay"></div>
+      </div>
+
+      <!-- Main Container -->
+      <div class="container">
+
+          <!-- Header -->
+          <header class="header">
+              <div class="header-content">
+                  <div class="logo-section">
+                      <div class="logo-icon">
+                          <svg width="40" height="40" viewBox="0 0 40 40">
+                              <path d="M20 5 L35 15 L35 25 L20 35 L5 25 L5 15 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                              <circle cx="20" cy="20" r="3" fill="currentColor"/>
+                          </svg>
+                      </div>
+                      <div class="logo-text">
+                          <h1>Aircraft Prediction System</h1>
+                          <p>Advanced Analytics Platform</p>
+                      </div>
+                  </div>
+                  <div class="header-stats">
+                      <div class="stat-item">
+                          <span class="stat-label">Models Active</span>
+                          <span class="stat-value" id="models-status">2/2</span>
+                      </div>
+                      <div class="stat-item">
+                          <span class="stat-label">API Status</span>
+                          <span class="stat-value status-indicator" id="api-status">
+                              <span class="status-dot"></span> Online
+                          </span>
+                      </div>
+                  </div>
+              </div>
+          </header>
+
+          <!-- Navigation -->
+          <nav class="nav-tabs">
+              <button class="nav-tab active" data-tab="predict">
+                  <svg width="20" height="20" viewBox="0 0 20 20">
+                      <path d="M10 2L15 7H12V14H8V7H5L10 2Z" fill="currentColor"/>
+                  </svg>
+                  Flight Prediction
+              </button>
+              <button class="nav-tab" data-tab="analytics">
+                  <svg width="20" height="20" viewBox="0 0 20 20">
+                      <rect x="2" y="12" width="4" height="6" fill="currentColor"/>
+                      <rect x="8" y="8" width="4" height="10" fill="currentColor"/>
+                      <rect x="14" y="4" width="4" height="14" fill="currentColor"/>
+                  </svg>
+                  Analytics
+              </button>
+              <button class="nav-tab" data-tab="batch">
+                  <svg width="20" height="20" viewBox="0 0 20 20">
+                      <rect x="2" y="2" width="16" height="3" fill="currentColor"/>
+                      <rect x="2" y="8" width="16" height="3" fill="currentColor"/>
+                      <rect x="2" y="14" width="16" height="3" fill="currentColor"/>
+                  </svg>
+                  Batch Processing
+              </button>
+          </nav>
+
+          <!-- Main Content Area -->
+          <main class="main-content">
+
+              <!-- TAB 1: PREDICTION -->
+              <div class="tab-content active" id="predict-tab" style="padding-top: 0.5rem !important;">
+                  <div class="content-grid">
+
+                      <!-- Left Column: Input Form -->
+                      <div class="card input-card">
+                          <div class="card-header">
+                              <h2>Flight Information</h2>
+                              <p>Enter flight parameters for risk assessment</p>
+                          </div>
+                          <div class="card-body">
+                              <form id="prediction-form">
+
+                                  <!-- Aircraft Details Section -->
+                                  <div class="form-section">
+                                      <h3>Aircraft Details</h3>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="aircraft_type">Aircraft Type</label>
+                                              <select id="aircraft_type" name="aircraft_type" required>
+                                                  <option value="">Select Aircraft</option>
+                                                  <option value="Boeing 737">Boeing 737</option>
+                                                  <option value="Boeing 777">Boeing 777</option>
+                                                  <option value="Boeing 787">Boeing 787</option>
+                                                  <option value="Airbus A320">Airbus A320</option>
+                                                  <option value="Airbus A350">Airbus A350</option>
+                                              </select>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="aircraft_age">Aircraft Age (years)</label>
+                                              <input type="number" id="aircraft_age" name="aircraft_age" min="0" max="30" required>
+                                          </div>
+                                      </div>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="operational_hours">Operational Hours</label>
+                                              <input type="number" id="operational_hours" name="operational_hours" min="1000" max="50000" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="airline">Airline</label>
+                                              <select id="airline" name="airline" required>
+                                                  <option value="">Select Airline</option>
+                                                  <option value="AirGlobal">AirGlobal</option>
+                                                  <option value="SkyConnect">SkyConnect</option>
+                                                  <option value="OceanAir">OceanAir</option>
+                                                  <option value="Continental Express">Continental Express</option>
+                                                  <option value="PacificWings">PacificWings</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Maintenance Section -->
+                                  <div class="form-section">
+                                      <h3>Maintenance History</h3>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="days_since_maintenance">Days Since Last Maintenance</label>
+                                              <input type="number" id="days_since_maintenance" name="days_since_maintenance" min="1" max="500" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="maintenance_count">Total Maintenance Count</label>
+                                              <input type="number" id="maintenance_count" name="maintenance_count" min="5" max="50" required>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Flight Route Section -->
+                                  <div class="form-section">
+                                      <h3>Flight Route</h3>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="origin">Origin Airport</label>
+                                              <select id="origin" name="origin" required>
+                                                  <option value="">Select Origin</option>
+                                                  <option value="JFK">JFK - New York</option>
+                                                  <option value="LAX">LAX - Los Angeles</option>
+                                                  <option value="ORD">ORD - Chicago</option>
+                                                  <option value="ATL">ATL - Atlanta</option>
+                                                  <option value="DFW">DFW - Dallas</option>
+                                                  <option value="SFO">SFO - San Francisco</option>
+                                              </select>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="destination">Destination Airport</label>
+                                              <select id="destination" name="destination" required>
+                                                  <option value="">Select Destination</option>
+                                                  <option value="JFK">JFK - New York</option>
+                                                  <option value="LAX">LAX - Los Angeles</option>
+                                                  <option value="ORD">ORD - Chicago</option>
+                                                  <option value="ATL">ATL - Atlanta</option>
+                                                  <option value="DFW">DFW - Dallas</option>
+                                                  <option value="SFO">SFO - San Francisco</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="distance">Flight Distance (miles)</label>
+                                              <input type="number" id="distance" name="distance" min="100" max="5000" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="flight_duration">Flight Duration (hours)</label>
+                                              <input type="number" step="0.1" id="flight_duration" name="flight_duration" min="0.5" max="15" required>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Weather Conditions Section -->
+                                  <div class="form-section">
+                                      <h3>Weather Conditions</h3>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="weather_condition">Weather Condition</label>
+                                              <select id="weather_condition" name="weather_condition" required>
+                                                  <option value="">Select Condition</option>
+                                                  <option value="Clear">Clear</option>
+                                                  <option value="Cloudy">Cloudy</option>
+                                                  <option value="Rainy">Rainy</option>
+                                                  <option value="Stormy">Stormy</option>
+                                                  <option value="Foggy">Foggy</option>
+                                              </select>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="weather_severity">Weather Severity (1-5)</label>
+                                              <input type="number" id="weather_severity" name="weather_severity" min="1" max="5" required>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Sensor Readings Section -->
+                                  <div class="form-section">
+                                      <h3>Sensor Readings</h3>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="engine_temperature">Engine Temperature (°C)</label>
+                                              <input type="number" step="0.1" id="engine_temperature" name="engine_temperature" min="240" max="340" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="oil_pressure">Oil Pressure (PSI)</label>
+                                              <input type="number" step="0.1" id="oil_pressure" name="oil_pressure" min="15" max="55" required>
+                                          </div>
+                                      </div>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="vibration_level">Vibration Level (mm/s)</label>
+                                              <input type="number" step="0.1" id="vibration_level" name="vibration_level" min="5" max="30" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="fuel_consumption">Fuel Consumption (gallons)</label>
+                                              <input type="number" step="0.1" id="fuel_consumption" name="fuel_consumption" min="800" max="5000" required>
+                                          </div>
+                                      </div>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="hydraulic_pressure">Hydraulic Pressure (PSI)</label>
+                                              <input type="number" step="0.1" id="hydraulic_pressure" name="hydraulic_pressure" min="2800" max="3200" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="cabin_pressure">Cabin Pressure (PSI)</label>
+                                              <input type="number" step="0.1" id="cabin_pressure" name="cabin_pressure" min="10.5" max="11.5" required>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Operational Factors Section -->
+                                  <div class="form-section">
+                                      <h3>Operational Factors</h3>
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="previous_delays">Previous Delays</label>
+                                              <input type="number" id="previous_delays" name="previous_delays" min="0" max="10" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="crew_experience">Crew Experience (years)</label>
+                                              <input type="number" step="0.1" id="crew_experience" name="crew_experience" min="2" max="25" required>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Submit Button -->
+                                  <div class="form-actions">
+                                      <button type="submit" class="btn btn-primary" id="predict-btn">
+                                          <span class="btn-text">Analyze Flight Risk</span>
+                                          <span class="btn-loader" style="display:none;"></span>
+                                      </button>
+                                      <button type="reset" class="btn btn-secondary">Reset Form</button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+
+                      <!-- Right Column: Results -->
+                      <div class="results-column">
+
+                          <!-- Prediction Results Card -->
+                          <div class="card results-card" id="results-card" style="display:none;">
+                              <div class="card-header">
+                                  <h2>Risk Assessment Results</h2>
+                                  <p id="results-timestamp"></p>
+                              </div>
+                              <div class="card-body">
+
+                                  <!-- Equipment Failure Prediction -->
+                                  <div class="prediction-result">
+                                      <div class="result-header">
+                                          <h3>Equipment Failure Risk</h3>
+                                          <span class="risk-badge" id="equipment-badge"></span>
+                                      </div>
+                                      <div class="result-metrics">
+                                          <div class="metric-item">
+                                              <span class="metric-label">Prediction</span>
+                                              <span class="metric-value" id="equipment-prediction"></span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">Probability</span>
+                                              <span class="metric-value" id="equipment-probability"></span>
+                                          </div>
+                                      </div>
+                                      <div class="progress-bar">
+                                          <div class="progress-fill" id="equipment-progress"></div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Flight Cancellation Prediction -->
+                                  <div class="prediction-result">
+                                      <div class="result-header">
+                                          <h3>Flight Cancellation Risk</h3>
+                                          <span class="risk-badge" id="cancellation-badge"></span>
+                                      </div>
+                                      <div class="result-metrics">
+                                          <div class="metric-item">
+                                              <span class="metric-label">Prediction</span>
+                                              <span class="metric-value" id="cancellation-prediction"></span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">Probability</span>
+                                              <span class="metric-value" id="cancellation-probability"></span>
+                                          </div>
+                                      </div>
+                                      <div class="progress-bar">
+                                          <div class="progress-fill" id="cancellation-progress"></div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Flight Summary -->
+                                  <div class="flight-summary">
+                                      <h3>Flight Summary</h3>
+                                      <div class="summary-grid">
+                                          <div class="summary-item">
+                                              <span class="summary-label">Aircraft</span>
+                                              <span class="summary-value" id="summary-aircraft"></span>
+                                          </div>
+                                          <div class="summary-item">
+                                              <span class="summary-label">Route</span>
+                                              <span class="summary-value" id="summary-route"></span>
+                                          </div>
+                                          <div class="summary-item">
+                                              <span class="summary-label">Maintenance</span>
+                                              <span class="summary-value" id="summary-maintenance"></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <!-- Model Information Card -->
+                          <div class="card info-card">
+                              <div class="card-header">
+                                  <h2>Model Information</h2>
+                              </div>
+                              <div class="card-body">
+                                  <div class="info-grid" id="model-info">
+                                      <div class="info-item">
+                                          <span class="info-label">Equipment Failure Model</span>
+                                          <span class="info-value">Loading...</span>
+                                      </div>
+                                      <div class="info-item">
+                                          <span class="info-label">Cancellation Model</span>
+                                          <span class="info-value">Loading...</span>
+                                      </div>
+                                      <div class="info-item">
+                                          <span class="info-label">Preprocessing</span>
+                                          <span class="info-value">Loading...</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- TAB 2: ANALYTICS -->
+              <div class="tab-content" id="analytics-tab" style="margin-top: 0 !important; padding-top: 0.25rem !important;">
+                  <!-- Loading State -->
+                  <div id="analytics-loading" class="card">
+                      <div class="card-body" style="text-align: center; padding: 3rem;">
+                          <p style="font-size: 1.2rem; color: var(--gray-500);">Loading analytics data...</p>
+                      </div>
+                  </div>
+
+                  <!-- Analytics Content -->
+                  <div id="analytics-content" style="display: none; margin-top: 0 !important; padding-top: 0 !important;">
+                      <!-- SECTION 1: MODEL PERFORMANCE -->
+                      <div class="card" style="margin-bottom: var(--spacing-sm); margin-top: 0 !important;">
+                          <div class="card-header" style="padding: var(--spacing-sm) var(--spacing-md);">
+                              <h2 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Model Performance Metrics</h2>
+                              <p style="font-size: 0.8rem;">Comprehensive evaluation of ML model accuracy and reliability</p>
+                          </div>
+                          <div class="card-body" style="padding: var(--spacing-sm) var(--spacing-md);">
+                              <!-- Performance Overview Cards -->
+                              <div style="display: grid; grid-template-columns: 1fr; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm);">
+                                  <!-- Equipment Failure Model Card -->
+                                  <div class="performance-card">
+                                      <h3>Equipment Failure Model</h3>
+
+                                      <!-- ROC-AUC Large Display (on top) -->
+                                      <div class="metric-item-large">
+                                          <span class="metric-label">ROC-AUC Score</span>
+                                          <span class="metric-value-large" id="equip-roc-auc">-</span>
+                                      </div>
+
+                                      <!-- Other Metrics Grid (below) -->
+                                      <div class="metric-grid">
+                                          <div class="metric-item">
+                                              <span class="metric-label">Accuracy</span>
+                                              <span class="metric-value" id="equip-accuracy">-</span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">Precision</span>
+                                              <span class="metric-value" id="equip-precision">-</span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">Recall</span>
+                                              <span class="metric-value" id="equip-recall">-</span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">F1 Score</span>
+                                              <span class="metric-value" id="equip-f1">-</span>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Flight Cancellation Model Card -->
+                                  <div class="performance-card">
+                                      <h3>Flight Cancellation Model</h3>
+
+                                      <!-- ROC-AUC Large Display (on top) -->
+                                      <div class="metric-item-large">
+                                          <span class="metric-label">ROC-AUC Score</span>
+                                          <span class="metric-value-large" id="cancel-roc-auc">-</span>
+                                      </div>
+
+                                      <!-- Other Metrics Grid (below) -->
+                                      <div class="metric-grid">
+                                          <div class="metric-item">
+                                              <span class="metric-label">Accuracy</span>
+                                              <span class="metric-value" id="cancel-accuracy">-</span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">Precision</span>
+                                              <span class="metric-value" id="cancel-precision">-</span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">Recall</span>
+                                              <span class="metric-value" id="cancel-recall">-</span>
+                                          </div>
+                                          <div class="metric-item">
+                                              <span class="metric-label">F1 Score</span>
+                                              <span class="metric-value" id="cancel-f1">-</span>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                              <!-- Confusion Matrices -->
+                              <div style="display: grid; grid-template-columns: 1fr; gap: var(--spacing-sm);">
+                                  <div class="chart-container">
+                                      <h4>Equipment Failure - Confusion Matrix</h4>
+                                      <canvas id="equip-confusion-chart"></canvas>
+                                  </div>
+                                  <div class="chart-container">
+                                      <h4>Flight Cancellation - Confusion Matrix</h4>
+                                      <canvas id="cancel-confusion-chart"></canvas>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- SECTION 2: HISTORICAL DATA ANALYSIS -->
+                      <div class="card" style="margin-bottom: var(--spacing-sm);">
+                          <div class="card-header" style="padding: var(--spacing-sm) var(--spacing-md);">
+                              <h2 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Historical Data Analysis</h2>
+                              <p style="font-size: 0.8rem;">Insights from 15,000 flight records</p>
+                          </div>
+                          <div class="card-body" style="padding: var(--spacing-sm) var(--spacing-md);">
+                              <!-- Summary Stats -->
+                              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-sm); margin-bottom: var(--spacing-sm);">
+                                  <div class="stat-card">
+                                      <div class="stat-icon" style="background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));">
+                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"/>
+                                          </svg>
+                                      </div>
+                                      <div class="stat-content">
+                                          <span class="stat-label">Total Flights</span>
+                                          <span class="stat-number" id="total-flights">-</span>
+                                      </div>
+                                  </div>
+                                  <div class="stat-card">
+                                      <div class="stat-icon" style="background: linear-gradient(135deg, var(--danger-red), #DC2626);">
+                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                              <path d="M12 2L2 22H22L12 2Z"/>
+                                          </svg>
+                                      </div>
+                                      <div class="stat-content">
+                                          <span class="stat-label">Equipment Failures</span>
+                                          <span class="stat-number" id="total-failures">-</span>
+                                      </div>
+                                  </div>
+                                  <div class="stat-card">
+                                      <div class="stat-icon" style="background: linear-gradient(135deg, var(--warning-yellow), #D97706);">
+                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                              <circle cx="12" cy="12" r="10"/>
+                                              <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2" fill="none"/>
+                                          </svg>
+                                      </div>
+                                      <div class="stat-content">
+                                          <span class="stat-label">Cancellations</span>
+                                          <span class="stat-number" id="total-cancellations">-</span>
+                                      </div>
+                                  </div>
+                                  <div class="stat-card">
+                                      <div class="stat-icon" style="background: linear-gradient(135deg, var(--success-green), #059669);">
+                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                              <path d="M9 11L12 14L22 4L20 2L12 10L9 7L2 14L4 16L9 11Z"/>
+                                          </svg>
+                                      </div>
+                                      <div class="stat-content">
+                                          <span class="stat-label">Success Rate</span>
+                                          <span class="stat-number" id="success-rate">-</span>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!-- Charts Grid -->
+                              <div style="display: grid; grid-template-columns: 1fr; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm);">
+                                  <div class="chart-container">
+                                      <h4>Risk Distribution</h4>
+                                      <canvas id="risk-distribution-chart"></canvas>
+                                  </div>
+                                  <div class="chart-container">
+                                      <h4>Failure Rate by Aircraft Type</h4>
+                                      <canvas id="aircraft-type-chart"></canvas>
+                                  </div>
+                                  <div class="chart-container">
+                                      <h4>Weather Impact on Failures</h4>
+                                      <canvas id="weather-chart"></canvas>
+                                  </div>
+                                  <div class="chart-container">
+                                      <h4>Maintenance Impact</h4>
+                                      <canvas id="maintenance-chart"></canvas>
+                                  </div>
+                              </div>
+
+                              <!-- Top Risky Routes Table -->
+                              <div>
+                                  <h4 style="margin-bottom: var(--spacing-sm); color: var(--gray-700); font-size: 0.875rem;">Top 10 Risky Routes</h4>
+                                  <div class="table-container">
+                                      <table class="data-table" id="risky-routes-table">
+                                          <thead>
+                                              <tr>
+                                                  <th>Route</th>
+                                                  <th>Total Flights</th>
+                                                  <th>Failures</th>
+                                                  <th>Failure Rate</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <!-- Populated by JavaScript -->
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              </div>
+
+              <!-- TAB 3: BATCH PROCESSING -->
+              <div class="tab-content" id="batch-tab" style="padding-top: 0.5rem !important;">
+                  <div class="card">
+                      <div class="card-header">
+                          <h2>Batch Processing</h2>
+                          <p>Upload CSV files for bulk predictions</p>
+                      </div>
+                      <div class="card-body">
+
+                          <!-- File Upload Area -->
+                          <div class="upload-area" id="upload-area">
+                              <input type="file" id="csv-file-input" accept=".csv" style="width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;">
+                              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                  <polyline points="17 8 12 3 7 8"></polyline>
+                                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                              </svg>
+                              <h3>Upload CSV File</h3>
+                              <p>Click browse to select your CSV file</p>
+                              <button type="button" class="btn btn-secondary" id="browse-btn">Browse Files</button>
+                              <div class="upload-instructions">
+                                  <p><strong>Required columns:</strong> aircraft_type, aircraft_age, operational_hours, days_since_maintenance, maintenance_count, airline, origin, destination, distance, flight_duration, weather_condition, weather_severity, engine_temperature, oil_pressure, vibration_level, fuel_consumption, hydraulic_pressure, cabin_pressure, previous_delays, crew_experience</p>
+                                  <button type="button" class="btn-link" id="download-template">Download CSV Template</button>
+                              </div>
+                          </div>
+
+                          <!-- File Selected Info -->
+                          <div id="file-selected-info" style="display: none;">
+                              <div class="file-info-card">
+                                  <div class="file-info-content">
+                                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                          <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                          <polyline points="13 2 13 9 20 9"></polyline>
+                                      </svg>
+                                      <div>
+                                          <h4 id="file-name">filename.csv</h4>
+                                          <p id="file-stats">0 rows loaded</p>
+                                      </div>
+                                  </div>
+                                  <div class="file-info-actions">
+                                      <button type="button" class="btn btn-primary" id="process-batch-btn">Process Batch</button>
+                                      <button type="button" class="btn btn-secondary" id="remove-file-btn">Remove</button>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <!-- Processing Status -->
+                          <div id="batch-processing-status" style="display: none;">
+                              <div class="processing-card">
+                                  <div class="spinner"></div>
+                                  <h4>Processing Predictions...</h4>
+                                  <p id="processing-progress">Processing 0 of 0 flights</p>
+                              </div>
+                          </div>
+
+                          <!-- Results Display -->
+                          <div id="batch-results-container" style="display: none;">
+                              <div class="results-header">
+                                  <h3>Batch Prediction Results</h3>
+                                  <button type="button" class="btn btn-primary" id="export-results-btn">Export Results to CSV</button>
+                              </div>
+
+                              <!-- Results Summary -->
+                              <div class="results-summary">
+                                  <div class="summary-stat">
+                                      <span class="summary-label">Total Flights Analyzed</span>
+                                      <span class="summary-number" id="batch-total-flights">0</span>
+                                  </div>
+                                  <div class="summary-stat">
+                                      <span class="summary-label">Predicted Equipment Failures</span>
+                                      <span class="summary-number danger" id="batch-total-failures">0</span>
+                                  </div>
+                                  <div class="summary-stat">
+                                      <span class="summary-label">Predicted Cancellations</span>
+                                      <span class="summary-number warning" id="batch-total-cancellations">0</span>
+                                  </div>
+                                  <div class="summary-stat">
+                                      <span class="summary-label">Success Rate</span>
+                                      <span class="summary-number success" id="batch-success-rate">0%</span>
+                                  </div>
+                              </div>
+
+                              <!-- Results Table -->
+                              <div class="table-container">
+                                  <table class="data-table" id="batch-results-table">
+                                      <thead>
+                                          <tr>
+                                              <th>#</th>
+                                              <th>Aircraft</th>
+                                              <th>Route</th>
+                                              <th>Equipment Risk</th>
+                                              <th>Equipment Prob.</th>
+                                              <th>Cancellation Risk</th>
+                                              <th>Cancel Prob.</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <!-- Populated by JavaScript -->
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
+          </main>
+
+            <!-- Footer -->
+  <footer class="footer">
+      <p>Aircraft Maintenance & Flight Prediction System | Advanced Machine Learning Analytics Platform</p>
+      <p>Powered by XGBoost, LightGBM & Random Forest Models | Real-time Predictive Analytics</p>
+      <p>Made by Baneeth S Bandi</p>
+  </footer>
+
+      </div>
+
+      <!-- Airplane Takeoff Animation -->
+      <div class="airplane-container" id="airplane-animation">
+          <svg class="airplane-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z"
+                    fill="#0078D4" stroke="#005A9E" stroke-width="0.5"/>
+          </svg>
+      </div>
+
+      <script src="app.js?v=TABS-WORKING-NOW"></script>
+  </body>
+  </html>

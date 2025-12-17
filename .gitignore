@@ -1,0 +1,46 @@
+ # ============================================
+  # FILES TO IGNORE IN GIT
+  # ============================================
+  # (These files shouldn't be uploaded to GitHub)
+
+  # === PYTHON GENERATED FILES ===
+  __pycache__/              # Python cache files (auto-generated)
+  *.py[cod]                 # Compiled Python files
+  *$py.class
+  *.so
+  .Python
+  env/
+  venv/                     # Virtual environment (too large for GitHub)
+  *.egg-info/
+
+  
+  # === DATA FILES ===
+  # Large pre-deployed dataset (too big for GitHub)
+  backend/data/raw/aircraft_flight_data.csv
+
+  # Processed data (can be regenerated)
+  backend/data/processed/*.csv
+
+  # Prediction logs (keep locally)
+  backend/data/logs/*.csv
+
+  # KEEP the small incremental dataset
+  !backend/data/raw/incremental_data.csv
+
+  # === IDE FILES ===
+  .vscode/                  # VS Code settings
+  .idea/                    # PyCharm settings
+  *.swp
+  *.swo
+
+  # === OS FILES ===
+  .DS_Store                 # Mac system file
+  Thumbs.db                 # Windows system file
+
+  # === TESTING ===
+  .pytest_cache/
+  .coverage
+  htmlcov/
+
+  # === ENVIRONMENT ===
+  .env                      # Secret keys and passwords

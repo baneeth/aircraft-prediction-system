@@ -1,0 +1,179 @@
+{
+  "generated_at": "2025-12-16T15:00:03.506389",
+  "model_performance": {
+    "equipment_failure": {
+      "roc_auc": 0.8667909087328394,
+      "accuracy": 0.8412,
+      "precision": 0.5485164394546913,
+      "recall": 0.7475409836065574,
+      "f1_score": 0.6327474560592045,
+      "confusion_matrix": {
+        "true_negative": 10566,
+        "false_positive": 1689,
+        "false_negative": 693,
+        "true_positive": 2052
+      }
+    },
+    "flight_cancellation": {
+      "roc_auc": 0.8513799176838358,
+      "accuracy": 0.8305333333333333,
+      "precision": 0.511808910359635,
+      "recall": 0.7250950570342205,
+      "f1_score": 0.6000629326620516,
+      "confusion_matrix": {
+        "true_negative": 10551,
+        "false_positive": 1819,
+        "false_negative": 723,
+        "true_positive": 1907
+      }
+    }
+  },
+  "historical_data": {
+    "total_flights": 15000,
+    "equipment_failures": 2745,
+    "flight_cancellations": 2630,
+    "equipment_failure_rate": 18.3,
+    "cancellation_rate": 17.533333333333335,
+    "risk_distribution": {
+      "low": 3045,
+      "medium": 6520,
+      "high": 5435
+    },
+    "aircraft_types": [
+      {
+        "type": "Airbus A320",
+        "total_failures": 624,
+        "failure_rate": 20.19,
+        "total_cancellations": 572,
+        "cancellation_rate": 18.509999999999998
+      },
+      {
+        "type": "Boeing 737",
+        "total_failures": 575,
+        "failure_rate": 19.29,
+        "total_cancellations": 552,
+        "cancellation_rate": 18.52
+      },
+      {
+        "type": "Boeing 777",
+        "total_failures": 526,
+        "failure_rate": 17.89,
+        "total_cancellations": 511,
+        "cancellation_rate": 17.380000000000003
+      },
+      {
+        "type": "Boeing 787",
+        "total_failures": 515,
+        "failure_rate": 17.31,
+        "total_cancellations": 518,
+        "cancellation_rate": 17.41
+      },
+      {
+        "type": "Airbus A350",
+        "total_failures": 505,
+        "failure_rate": 16.77,
+        "total_cancellations": 477,
+        "cancellation_rate": 15.840000000000002
+      }
+    ],
+    "weather_conditions": [
+      {
+        "condition": "Clear",
+        "failure_rate": 18.09,
+        "cancellation_rate": 15.47
+      },
+      {
+        "condition": "Cloudy",
+        "failure_rate": 17.87,
+        "cancellation_rate": 14.04
+      },
+      {
+        "condition": "Foggy",
+        "failure_rate": 19.919999999999998,
+        "cancellation_rate": 23.61
+      },
+      {
+        "condition": "Rainy",
+        "failure_rate": 18.490000000000002,
+        "cancellation_rate": 23.39
+      },
+      {
+        "condition": "Stormy",
+        "failure_rate": 20.32,
+        "cancellation_rate": 31.819999999999997
+      }
+    ],
+    "top_risky_routes": [
+      {
+        "route": "IAH \u2192 MCO",
+        "total_flights": 1941,
+        "failures": 385,
+        "failure_rate": 19.84
+      },
+      {
+        "route": "DCA \u2192 SAN",
+        "total_flights": 1901,
+        "failures": 363,
+        "failure_rate": 19.1
+      },
+      {
+        "route": "ORD \u2192 SFO",
+        "total_flights": 1859,
+        "failures": 341,
+        "failure_rate": 18.34
+      },
+      {
+        "route": "ATL \u2192 DEN",
+        "total_flights": 1855,
+        "failures": 339,
+        "failure_rate": 18.27
+      },
+      {
+        "route": "JFK \u2192 LAX",
+        "total_flights": 1883,
+        "failures": 342,
+        "failure_rate": 18.16
+      },
+      {
+        "route": "MIA \u2192 BOS",
+        "total_flights": 1866,
+        "failures": 329,
+        "failure_rate": 17.630000000000003
+      },
+      {
+        "route": "DFW \u2192 SEA",
+        "total_flights": 1827,
+        "failures": 320,
+        "failure_rate": 17.52
+      },
+      {
+        "route": "LAS \u2192 PHX",
+        "total_flights": 1868,
+        "failures": 326,
+        "failure_rate": 17.45
+      }
+    ],
+    "maintenance_impact": [
+      {
+        "days_range": "0-100",
+        "failure_rate": 14.69
+      },
+      {
+        "days_range": "101-200",
+        "failure_rate": 15.870000000000001
+      },
+      {
+        "days_range": "201-300",
+        "failure_rate": 18.23
+      },
+      {
+        "days_range": "301-400",
+        "failure_rate": 19.689999999999998
+      },
+      {
+        "days_range": "401-500",
+        "failure_rate": 23.02
+      }
+    ]
+  }
+}
