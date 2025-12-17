@@ -79,24 +79,14 @@ from datetime import datetime
 import json
 
 
-def prepare_input_data(data):
-    """Add missing features with default values"""
-    required_features = list(pipeline.feature_names_in_)
-    df = pd.DataFrame([data] if not isinstance(data, list) else data)
-    for feature in required_features:
-        if feature not in df.columns:
-            df[feature] = 0
-    df = df[required_features]
-    return df
-
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin requests (allows frontend to call API)
 
 # ========== LOAD MODELS AT STARTUP ==========
 MODEL_DIR = 'models/saved_models'
 PIPELINE_PATH = os.path.join(MODEL_DIR, 'preprocessing_pipeline.pkl')
-EQUIPMENT_MODEL_PATH = os.path.join(MODEL_DIR, 'equipment_failure_model.pkl')
-CANCELLATION_MODEL_PATH = os.path.join(MODEL_DIR, 'flight_cancellation_model.pkl')
+EQUIPMENT_MODEL_PATH = os.path.join(MODEL_DIR, 'equipment_failure_xgboost_model.pkl')
+CANCELLATION_MODEL_PATH = os.path.join(MODEL_DIR, 'flight_cancellation_xgboost_model.pkl')
 
 print("\n" + "="*70)
 print("LOADING MODELS...")
@@ -115,6 +105,16 @@ except Exception as e:
     pipeline = None
     equipment_model = None
     cancellation_model = None
+
+def prepare_input_data(data):
+    """Add missing features with default values"""
+    required_features = list(pipeline.feature_names_in_)
+    df = pd.DataFrame([data] if not isinstance(data, list) else data)
+    for feature in required_features:
+        if feature not in df.columns:
+            df[feature] = 0
+    df = df[required_features]
+    return df
 
 
 # ========== ENDPOINT 1: HEALTH CHECK ==========
