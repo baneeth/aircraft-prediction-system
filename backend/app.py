@@ -77,6 +77,7 @@ import numpy as np
 import os
 from datetime import datetime
 import json
+import traceback
 
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin requests (allows frontend to call API)
